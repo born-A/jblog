@@ -29,4 +29,8 @@ public class CategoryRepository {
 	public int deleteByNo(Long categoryNo) {
 		return sqlSession.delete("category.deleteByNo", categoryNo);
 	}
+
+	public List<CategoryVo> findListById(String id) {
+		return sqlSession.selectList("category.findListById", id);
+	}
 }

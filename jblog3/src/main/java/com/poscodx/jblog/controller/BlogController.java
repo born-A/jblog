@@ -40,16 +40,16 @@ public class BlogController {
 		BlogVo vo = blogService.getBlog(id);
 		String title = blogService.getBlog(id).getTitle();
 		List<PostVo> postList = null;
-		List<CategoryVo> categoryList = blogService.getCategories();
+		List<CategoryVo> categoryList = blogService.getCategoriesById(id);
 		PostVo post = null;
 		
 		if(categoryNo != null && postNo == null) {
-			postList = blogService.getPostsByCategory(categoryNo);
+			postList = blogService.getPostsByCategoryAndId(categoryNo, id);
 		} else if(categoryNo != null && postNo != null){
-			postList = blogService.getPosts();
+			postList = blogService.getPostsByBlogId(id);
 			post =blogService.getPostByNo(postNo);
 		} else {
-			postList = blogService.getPosts();
+			postList = blogService.getPostsByBlogId(id);
 		}
 		
 		model.addAttribute("list", postList);
@@ -92,8 +92,8 @@ public class BlogController {
 	@RequestMapping(value="/admin/category", method=RequestMethod.GET)
 	public String adminCategory(@PathVariable("id") String id, Model model) {
 		String title = blogService.getBlog(id).getTitle();
-		List<CategoryVo> categoryList = blogService.getCategories();
-		Map<Long, Integer> countsMap = blogService.getCountPost(categoryList);
+		List<CategoryVo> categoryList = blogService.getCategoriesById(id);
+		Map<Long, Integer> countsMap = blogService.getCountPost(categoryList, id);
 		model.addAttribute("id", id);
 		model.addAttribute("list", categoryList);
 		model.addAttribute("countsMap", countsMap);
@@ -117,7 +117,7 @@ public class BlogController {
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(@PathVariable("id") String id, Model model) {
 		String title = blogService.getBlog(id).getTitle();
-		List<CategoryVo> categoryList = blogService.getCategories();
+		List<CategoryVo> categoryList = blogService.getCategoriesById(id);
 		model.addAttribute("id", id);
 		model.addAttribute("list", categoryList);
 		model.addAttribute("title", title);
@@ -125,8 +125,8 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
-	public String adminWrite(PostVo vo) {
+	public String adminWrite(@PathVariable("id") String id, PostVo vo) {
 		blogService.createPost(vo);
-		return "blog/admin-write";
+		return "redirect:/" + id ;
 	}
 }

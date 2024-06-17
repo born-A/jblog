@@ -17,6 +17,14 @@
 		]]>
 	</select>
 	
+	<select id="findListById" parameterType="java.lang.String" resultType="categoryvo">
+		<![CDATA[
+		select * 
+			from category 
+				where id = #{id }
+		]]>
+	</select>
+	
 	<delete id="deleteByNo" parameterType="long">
 		<![CDATA[
 		delete 

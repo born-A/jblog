@@ -35,8 +35,8 @@ public class BlogService {
 		categoryRepository.insert(vo);
 	}
 
-	public List<CategoryVo> getCategories() {
-		return categoryRepository.findAll();
+	public List<CategoryVo> getCategoriesById(String id) {
+		return categoryRepository.findListById(id);
 	}
 
 	public void createPost(PostVo vo) {
@@ -60,12 +60,11 @@ public class BlogService {
 		blogRepository.update(vo);
 	}
 
-	public Map<Long, Integer> getCountPost(List<CategoryVo> categoryList) {
+	public Map<Long, Integer> getCountPost(List<CategoryVo> categoryList, String id) {
 		Map<Long, Integer> map = new HashMap<>();
 		for(CategoryVo vo : categoryList) {
-			Integer count = postRepository.findByCategoryNo(vo.getNo()).size();
-			map.put(vo.getNo(), count);
-			
+			Integer count = postRepository.findByCategoryNoAndId(vo.getNo(), id).size();
+			map.put(vo.getNo(), count);	
 		}
 		return map;
 	}
@@ -74,12 +73,16 @@ public class BlogService {
 		categoryRepository.deleteByNo(categoryNo);
 	}
 
-	public List<PostVo> getPostsByCategory(Long categoryNo) {
-		return postRepository.findByCategoryNo(categoryNo);
+	public List<PostVo> getPostsByCategoryAndId(Long categoryNo, String id) {
+		return postRepository.findByCategoryNoAndId(categoryNo, id);
 	}
 
 	public PostVo getPostByNo(Long postNo) {
 		return postRepository.findByNo(postNo);
+	}
+
+	public List<PostVo> getPostsByBlogId(String id) {
+		return postRepository.findByBlogId(id);
 	}
 	
 	

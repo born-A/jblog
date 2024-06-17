@@ -26,11 +26,41 @@
 		]]>
 	</select>
 	
+	<select id="findByBlogId" parameterType="java.lang.String" resultType="postvo">
+		<![CDATA[
+		SELECT 
+    		*
+		FROM 
+    		post p
+		JOIN 
+    		category c ON p.category_no = c.no
+		JOIN 
+    		blog b ON c.id = b.id
+		WHERE 
+    		b.id = #{id }
+		]]>
+	</select>
+	
 	<select id="findByCategoryNo" parameterType="long" resultType="postvo">
 		<![CDATA[
 		select * 
 			from post 
 			where category_no = #{categoryNo }
+		]]>
+	</select>
+	
+	<select id="findByCategoryNoAndId" parameterType="map" resultType="postvo">
+		<![CDATA[
+		SELECT 
+    		*
+		FROM 
+    		post p
+		JOIN 
+    		category c ON p.category_no = c.no
+		JOIN 
+    		blog b ON c.id = b.id
+		WHERE 
+    		b.id = #{id } and c.no = #{categoryNo }
 		]]>
 	</select>
 	

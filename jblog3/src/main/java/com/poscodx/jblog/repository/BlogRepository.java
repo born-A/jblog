@@ -16,7 +16,7 @@ public class BlogRepository {
 
 	public void insert(String id) {
 		String title = id + "님의 블로그";
-		String logo = id + "님의 로고";
+		String logo = "/assets/images/spring-logo.jpg";
 		sqlSession.insert("blog.insert", Map.of("id", id, "testTitle", title, "testLogo", logo));
 	}
 
