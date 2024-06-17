@@ -22,8 +22,8 @@ public class CategoryRepository {
 		return sqlSession.insert("category.insert", Map.of("name", "default", "description", "init", "id", id));
 	}
 
-	public List<CategoryVo> findAll() {
-		return sqlSession.selectList("category.findAll");
+	private int getTotal(String id) {
+		return sqlSession.selectOne("category.getTotal", id);
 	}
 
 	public int deleteByNo(Long categoryNo) {
@@ -31,6 +31,14 @@ public class CategoryRepository {
 	}
 
 	public List<CategoryVo> findListById(String id) {
-		return sqlSession.selectList("category.findListById", id);
+		List<CategoryVo> list = sqlSession.selectList("category.findListById", id);
+		int totalPosts = getTotal(id);
+		int index = totalPosts;
+
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setNumbering(index--);
+		}
+
+		return list;
 	}
 }

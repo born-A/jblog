@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.poscodx.jblog.repository.BlogRepository;
 import com.poscodx.jblog.repository.CategoryRepository;
+import com.poscodx.jblog.repository.PostRepository;
 import com.poscodx.jblog.repository.UserRepository;
 import com.poscodx.jblog.vo.UserVo;
 

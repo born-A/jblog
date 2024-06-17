@@ -34,6 +34,8 @@ public class PostRepository {
 	public List<PostVo> findByBlogId(String id) {
 		return sqlSession.selectList("post.findByBlogId", id);
 	}
-	
-	
+
+	public int initInsert(String id) {
+		return sqlSession.insert("post.initInsert", Map.of("title", id+"님의 init 게시글", "contents", "init 컨텐츠", "categoryNo", 1));
+	}
 }

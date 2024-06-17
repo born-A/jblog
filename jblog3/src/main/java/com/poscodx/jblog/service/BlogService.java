@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import  com.poscodx.jblog.repository.BlogRepository;
 import com.poscodx.jblog.repository.CategoryRepository;
@@ -74,16 +73,32 @@ public class BlogService {
 	}
 
 	public List<PostVo> getPostsByCategoryAndId(Long categoryNo, String id) {
-		return postRepository.findByCategoryNoAndId(categoryNo, id);
+		List<PostVo> postList = postRepository.findByCategoryNoAndId(categoryNo, id);
+		for (PostVo vo : postList) {
+		    vo.setContents(vo.getContents().replaceAll(">", "&gt;")
+		                                  .replaceAll("<", "&lt;")
+		                                  .replaceAll("\n", "<br/>"));
+		}
+		return postList;
 	}
 
 	public PostVo getPostByNo(Long postNo) {
-		return postRepository.findByNo(postNo);
+		PostVo vo = postRepository.findByNo(postNo);
+		vo.setContents(vo.getContents().replaceAll(">", "&gt;")
+                .replaceAll("<", "&lt;")
+                .replaceAll("\n", "<br/>"));
+		
+		return vo;
 	}
 
 	public List<PostVo> getPostsByBlogId(String id) {
-		return postRepository.findByBlogId(id);
+		List<PostVo> postList = postRepository.findByBlogId(id);
+		for (PostVo vo : postList) {
+		    vo.setContents(vo.getContents().replaceAll(">", "&gt;")
+		                                  .replaceAll("<", "&lt;")
+		                                  .replaceAll("\n", "<br/>"));
+		}
+		return postList;
 	}
-	
 	
 }

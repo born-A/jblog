@@ -32,4 +32,10 @@
 			where no = #{no }
 		]]>
 	</delete>
+	
+	<select id="getTotal" resultType="java.lang.Integer">
+		<![CDATA[
+		select count(*) from category where id = #{id }
+		]]>
+	</select>
 </mapper>

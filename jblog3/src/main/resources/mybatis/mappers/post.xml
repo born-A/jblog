@@ -10,6 +10,14 @@
 		]]>
 	</insert>
 	
+	<insert id="initInsert" parameterType="map">
+		<![CDATA[
+		insert 
+			into post
+			values(null, #{title }, #{contents }, now(), #{categoryNo })
+		]]>
+	</insert>
+	
 	<resultMap type="postvo" id="postSelectRM">
 		<result property="no" column="no"/>
 		<result property="title" column="title"/>
@@ -26,7 +34,7 @@
 		]]>
 	</select>
 	
-	<select id="findByBlogId" parameterType="java.lang.String" resultType="postvo">
+	<select id="findByBlogId" parameterType="java.lang.String" resultType="postvo" resultMap="postSelectRM">
 		<![CDATA[
 		SELECT 
     		*
@@ -41,7 +49,7 @@
 		]]>
 	</select>
 	
-	<select id="findByCategoryNo" parameterType="long" resultType="postvo">
+	<select id="findByCategoryNo" parameterType="long" resultType="postvo" resultMap="postSelectRM">
 		<![CDATA[
 		select * 
 			from post 
@@ -49,7 +57,7 @@
 		]]>
 	</select>
 	
-	<select id="findByCategoryNoAndId" parameterType="map" resultType="postvo">
+	<select id="findByCategoryNoAndId" parameterType="map" resultType="postvo" resultMap="postSelectRM">
 		<![CDATA[
 		SELECT 
     		*

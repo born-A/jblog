@@ -6,7 +6,14 @@ public class CategoryVo {
 	private String description;
 	private String regDate;
 	private String id;
+	private int numbering;
 	
+	public int getNumbering() {
+		return numbering;
+	}
+	public void setNumbering(int numbering) {
+		this.numbering = numbering;
+	}
 	public Long getNo() {
 		return no;
 	}

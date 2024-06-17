@@ -29,7 +29,7 @@
 		      		</tr>
 		      		<c:forEach var="vo" items="${list}">
 					<tr>
-    					<td>${vo.getNo()}</td>
+    					<td>${vo.getNumbering() }</td>
     					<td>${vo.getName()}</td>
     					<td>${countsMap.get(vo.getNo())}</td>
     					<td>${vo.getDescription()}</td>
